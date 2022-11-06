@@ -1,0 +1,20 @@
+{
+  "name": "next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "mock": "npx json-server -w db.json -p 4200 -d 450",
+    "serve": "concurrently \"npm run dev\" \"npm run mock\""
+  },
+  "dependencies": {
+    "concurrently": "^7.5.0",
+    "next": "13.0.2",
+    "nextjs-progressbar": "^0.0.16",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}
