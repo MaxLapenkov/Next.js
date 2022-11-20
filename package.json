@@ -14,7 +14,9 @@
     "concurrently": "^7.5.0",
     "next": "13.0.2",
     "nextjs-progressbar": "^0.0.16",
+    "normalize.css": "^8.0.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "sass": "^1.56.1"
   }
 }

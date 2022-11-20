@@ -1,10 +1,13 @@
 import Link from "next/link";
-import styles from "../styles/error.module.css";
+import styles from "../styles/error.module.scss";
+
+import { MainLayout } from "../components/MainLayout";
 
 export default function ErrorPage() {
   return (
-    <>
-      <h1 className={styles.error}>Error</h1> <Link href="/">go to main</Link>
-    </>
+    <MainLayout>
+      <h1 className={styles.error}>Странице не найдена</h1>
+      <Link href="/">Вернуться на главную</Link>
+    </MainLayout>
   );
 }

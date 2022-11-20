@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Head from "next/head";
 
+import styles from "../styles/main.module.scss";
+
 export function MainLayout({ children, title = "Next App" }) {
   return (
     <>
@@ -10,12 +12,11 @@ export function MainLayout({ children, title = "Next App" }) {
         <meta name="description" content="I learn next js" />
         <meta charSet="utf-8" />
       </Head>
-      <nav>
-        <Link href="/">home</Link>
-        <Link href="/about">about</Link>
-        <Link href="/post">posts</Link>
+      <nav className={styles.nav}>
+        <Link href="/">Рецепты</Link>
+        <Link href="/products">Сезонные продукты</Link>
       </nav>
-      <main>{children}</main>
+      <main className={styles.main}>{children}</main>
     </>
   );
 }
