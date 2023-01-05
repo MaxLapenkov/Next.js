@@ -53,8 +53,12 @@ export default function Recipe({ recipe: serverRecipe }) {
 }
 
 Recipe.getInitialProps = async ({ query }) => {
-  const recipe = await getRecipe(query.id);
-  return {
-    recipe,
-  };
+  try {
+    const recipe = await getRecipe(query.id);
+    return {
+      recipe,
+    };
+  } catch (error) {
+    return undefined;
+  }
 };

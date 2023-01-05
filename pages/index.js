@@ -8,7 +8,7 @@ export default function Recipes({ recipes }) {
     <MainLayout>
       <h1>Рецепты</h1>
       <ul className={styles.list}>
-        {recipes.map((recipe) => (
+        {recipes?.map((recipe) => (
           <li key={recipe.id}>
             <RecipeCard recipe={recipe} />
           </li>
@@ -19,9 +19,13 @@ export default function Recipes({ recipes }) {
 }
 
 Recipes.getInitialProps = async () => {
-  const responce = await fetch(`${process.env.API_URL}/recipes`);
-  const recipes = await responce.json();
-  return {
-    recipes,
-  };
+  try {
+    const responce = await fetch(`${process.env.API_URL}/recipes`);
+    const recipes = (await responce?.json()) ?? [];
+    return {
+      recipes,
+    };
+  } catch (error) {
+    return [];
+  }
 };

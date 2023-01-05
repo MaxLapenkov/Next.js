@@ -9,7 +9,7 @@ export default function Products({ products }) {
     <MainLayout>
       <h1>Сезонные продукты</h1>
       <ul className={styles.list}>
-        {products.map((product) => (
+        {products?.map((product) => (
           <li key={product.id}>
             <ProductCard product={product} />
           </li>
@@ -20,9 +20,13 @@ export default function Products({ products }) {
 }
 
 Products.getInitialProps = async () => {
-  const responce = await fetch(`${process.env.API_URL}/products`);
-  const products = await responce.json();
-  return {
-    products,
-  };
+  try {
+    const responce = await fetch(`${process.env.API_URL}/products`);
+    const products = (await responce?.json()) ?? [];
+    return {
+      products,
+    };
+  } catch (error) {
+    return [];
+  }
 };

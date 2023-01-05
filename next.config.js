@@ -9,6 +9,7 @@ const nextConfig = {
 };
 
 const withPWA = require("next-pwa")({
+  mode: 'production',
   dest: "public",
   register: true,
   skipWaiting: true,
