@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mock": "npx json-server -w db.json -p 4200 -d 450",
+    "mock": "npx json-server -w db.json -p 4200 -d 450 --routes routes.json",
     "serve": "concurrently \"npm run dev\" \"npm run mock\""
   },
   "dependencies": {
