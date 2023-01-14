@@ -1,26 +1,11 @@
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Router from "next/router";
+import { doc, getDoc } from "firebase/firestore/lite";
+import { firestore } from "../../firebase";
 
 import { MainLayout } from "../../components/MainLayout";
 import styles from "../../styles/recipe.module.scss";
 
-const getRecipe = async (id) => {
-  const responce = await fetch(`${process.env.API_URL}/recipes/${id}`);
-  const recipe = await responce.json();
-  return recipe;
-};
-
-export default function Recipe({ recipe: serverRecipe }) {
-  const router = useRouter();
-  const [recipe, setRecipe] = useState(serverRecipe);
-
-  useEffect(() => {
-    if (!serverRecipe) {
-      getRecipe(router.query.id).then((result) => setRecipe(result));
-    }
-  }, [serverRecipe]);
-
+export default function Recipe({ recipe }) {
   const linkClickHandler = () => {
     Router.push("/");
   };
@@ -54,10 +39,16 @@ export default function Recipe({ recipe: serverRecipe }) {
 
 Recipe.getInitialProps = async ({ query }) => {
   try {
-    const recipe = await getRecipe(query.id);
-    return {
-      recipe,
-    };
+    const docRef = doc(firestore, "recipes", query.id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const recipe = docSnap.data();
+      return {
+        recipe,
+      };
+    } else {
+      console.log("No such document!");
+    }
   } catch (error) {
     return {};
   }

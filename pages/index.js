@@ -1,24 +1,11 @@
-import { useState, useEffect } from "react";
 import { MainLayout } from "../components/MainLayout";
 import { RecipeCard } from "../components/RecipeCard";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { firestore } from "../firebase";
 
 import styles from "../styles/recipeList.module.scss";
 
-const getRecipes = async () => {
-  const responce = await fetch(`${process.env.API_URL}/recipes`);
-  const recipes = await responce.json();
-  return recipes;
-};
-
-export default function Recipes({ recipes: serverRecipes }) {
-  const [recipes, setRecipes] = useState(serverRecipes);
-
-  useEffect(() => {
-    if (!serverRecipes) {
-      getRecipes().then((result) => setRecipes(result));
-    }
-  }, [serverRecipes]);
-
+export default function Recipes({ recipes }) {
   return (
     <MainLayout>
       <h1>Рецепты</h1>
@@ -33,13 +20,17 @@ export default function Recipes({ recipes: serverRecipes }) {
   );
 }
 
-Recipes.getServerSideProps = async () => {
-  try {
-    const recipes = await getRecipes();
-    return {
+export async function getServerSideProps() {
+  const recipesCol = collection(firestore, "recipes");
+  const recipeSnapshot = await getDocs(recipesCol);
+  const recipes = recipeSnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+
+  return {
+    props: {
       recipes,
-    };
-  } catch (error) {
-    return {};
-  }
-};
+    },
+  };
+}

@@ -1,5 +1,6 @@
 import NextNProgress from "nextjs-progressbar";
 
+import "../firebase.js";
 import "normalize.css";
 import "../styles/globalStyles.scss";
 
