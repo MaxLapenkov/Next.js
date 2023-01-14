@@ -27,6 +27,6 @@ Products.getInitialProps = async () => {
       products,
     };
   } catch (error) {
-    return [];
+    return {};
   }
 };

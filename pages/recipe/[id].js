@@ -59,6 +59,6 @@ Recipe.getInitialProps = async ({ query }) => {
       recipe,
     };
   } catch (error) {
-    return undefined;
+    return {};
   }
 };

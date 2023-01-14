@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "mock": "npx json-server -w db.json -p 4200 -d 450 --routes routes.json",
-    "serve": "concurrently \"npm run dev\" \"npm run mock\""
+    "serve": "concurrently \"npm run dev\" \"npm run mock\"",
+    "prod": "concurrently \"npm run start\" \"npm run mock\""
   },
   "dependencies": {
     "concurrently": "^7.5.0",

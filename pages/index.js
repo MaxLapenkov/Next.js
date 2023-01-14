@@ -1,9 +1,24 @@
+import { useState, useEffect } from "react";
 import { MainLayout } from "../components/MainLayout";
 import { RecipeCard } from "../components/RecipeCard";
 
 import styles from "../styles/recipeList.module.scss";
 
-export default function Recipes({ recipes }) {
+const getRecipes = async () => {
+  const responce = await fetch(`${process.env.API_URL}/recipes`);
+  const recipes = await responce.json();
+  return recipes;
+};
+
+export default function Recipes({ recipes: serverRecipes }) {
+  const [recipes, setRecipes] = useState(serverRecipes);
+
+  useEffect(() => {
+    if (!serverRecipes) {
+      getRecipes().then((result) => setRecipes(result));
+    }
+  }, [serverRecipes]);
+
   return (
     <MainLayout>
       <h1>Рецепты</h1>
@@ -18,14 +33,13 @@ export default function Recipes({ recipes }) {
   );
 }
 
-Recipes.getInitialProps = async () => {
+Recipes.getServerSideProps = async () => {
   try {
-    const responce = await fetch(`${process.env.API_URL}/recipes`);
-    const recipes = (await responce?.json()) ?? [];
+    const recipes = await getRecipes();
     return {
       recipes,
     };
   } catch (error) {
-    return [];
+    return {};
   }
 };

@@ -3,11 +3,11 @@ import Head from "next/head";
 
 import styles from "../styles/main.module.scss";
 
-export function MainLayout({ children, title = "Next App" }) {
+export function MainLayout({ children, title = "Recipes App" }) {
   return (
     <>
       <Head>
-        <title>Next App</title>
+        <title>{title}</title>
         <meta name="keywords" content="next" />
         <meta name="description" content="I learn next js" />
         <meta charSet="utf-8" />
