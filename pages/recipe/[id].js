@@ -37,19 +37,18 @@ export default function Recipe({ recipe }) {
   );
 }
 
-Recipe.getInitialProps = async ({ query }) => {
-  try {
-    const docRef = doc(firestore, "recipes", query.id);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const recipe = docSnap.data();
-      return {
+export async function getServerSideProps({ query }) {
+  const docRef = doc(firestore, "recipes", query.id);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    const recipe = docSnap.data();
+    return {
+      props: {
         recipe,
-      };
-    } else {
-      console.log("No such document!");
-    }
-  } catch (error) {
+      },
+    };
+  } else {
+    console.log("No such document!");
     return {};
   }
-};
+}

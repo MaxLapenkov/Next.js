@@ -20,18 +20,17 @@ export default function Products({ products }) {
   );
 }
 
-Products.getInitialProps = async () => {
-  try {
-    const productsCol = collection(firestore, "products");
-    const productsnapshot = await getDocs(productsCol);
-    const products = productsnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    return {
+export async function getServerSideProps() {
+  const productsCol = collection(firestore, "products");
+  const productsnapshot = await getDocs(productsCol);
+  const products = productsnapshot.docs.map((doc) => ({
+    ...doc.data(),
+    id: doc.id,
+  }));
+
+  return {
+    props: {
       products,
-    };
-  } catch (error) {
-    return {};
-  }
-};
+    },
+  };
+}

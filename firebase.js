@@ -6,7 +6,7 @@ import { getFirestore } from "firebase/firestore/lite";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyAZdkFjfSMjkwwkggruRFsk9MymDQZoHh4",
   authDomain: "recipes-ece06.firebaseapp.com",
   projectId: "recipes-ece06",
